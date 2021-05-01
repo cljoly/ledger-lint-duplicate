@@ -179,7 +179,7 @@ type Tx struct {
 	Amount   float64
 }
 
-func printDuplicate(printed *map[int]bool, txs ...Tx) {
+func printDuplicate(printed *map[int]bool, txs ...*Tx) {
 	if len(txs) <= 0 {
 		return
 	}
@@ -193,7 +193,7 @@ func printDuplicate(printed *map[int]bool, txs ...Tx) {
 	fmt.Println()
 }
 
-func findDuplicates(txs map[float64][]Tx) (allDuplicates [][]Tx) {
+func findDuplicates(txs map[float64][]Tx) (allDuplicates [][]*Tx) {
 	for _, txs := range txs {
 		if len(txs) <= 1 {
 			continue
@@ -203,16 +203,19 @@ func findDuplicates(txs map[float64][]Tx) (allDuplicates [][]Tx) {
 			return txs[i].Date.Before(txs[j].Date) || txs[i].Account < txs[j].Account
 		})
 
-		var duplicates []Tx
+		var duplicates []*Tx
+		lastInserted := -1
 		for i := 1; i < len(txs); i++ {
 			endDate := txs[i].Date
 			d := txs[i].Date.Sub(txs[i-1].Date)
 			if d.Hours() <= TenDaysInHours {
-				if len(duplicates) >= 1 && endDate.Sub(duplicates[len(duplicates)-1].Date).Hours() <= TenDaysInHours {
-					duplicates = append(duplicates, txs[i])
+				if lastInserted >= 0 && endDate.Sub(duplicates[lastInserted].Date).Hours() <= TenDaysInHours {
+					duplicates = append(duplicates, &txs[i])
+					lastInserted++
 				} else {
 					allDuplicates = append(allDuplicates, duplicates)
-					duplicates = []Tx{txs[i-1], txs[i]}
+					duplicates = []*Tx{&txs[i-1], &txs[i]}
+					lastInserted = 1
 				}
 			}
 		}
