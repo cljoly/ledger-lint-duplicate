@@ -32,6 +32,7 @@ import (
 )
 
 type Ledger struct {
+/*
 	XMLName     xml.Name `xml:"ledger"`
 	Text        string   `xml:",chardata"`
 	Version     string   `xml:"version,attr"`
@@ -92,14 +93,15 @@ type Ledger struct {
 			} `xml:"account"`
 		} `xml:"account"`
 	} `xml:"accounts"`
+	*/
 	Transactions struct {
-		Text        string `xml:",chardata"`
+		// Text        string `xml:",chardata"`
 		Transaction []struct {
-			Text     string `xml:",chardata"`
-			State    string `xml:"state,attr"`
+			/* Text     string `xml:",chardata"`
+			State    string `xml:"state,attr"` */
 			Date     string `xml:"date"`
 			Payee    string `xml:"payee"`
-			Note     string `xml:"note"`
+			/* Note     string `xml:"note"`
 			Metadata struct {
 				Text  string `xml:",chardata"`
 				Value struct {
@@ -107,36 +109,36 @@ type Ledger struct {
 					Key    string `xml:"key,attr"`
 					String string `xml:"string"`
 				} `xml:"value"`
-			} `xml:"metadata"`
+			} `xml:"metadata"` */
 			Postings struct {
-				Text    string `xml:",chardata"`
+				// Text    string `xml:",chardata"`
 				Posting []struct {
-					Text    string `xml:",chardata"`
-					State   string `xml:"state,attr"`
-					Virtual string `xml:"virtual,attr"`
+					// Text    string `xml:",chardata"`
+					// State   string `xml:"state,attr"`
+					// Virtual string `xml:"virtual,attr"`
 					Account struct {
-						Text string `xml:",chardata"`
-						Ref  string `xml:"ref,attr"`
+						// Text string `xml:",chardata"`
+						// Ref  string `xml:"ref,attr"`
 						Name string `xml:"name"`
 					} `xml:"account"`
 					PostAmount struct {
-						Text   string `xml:",chardata"`
+						// Text   string `xml:",chardata"`
 						Amount struct {
-							Text     string  `xml:",chardata"`
+							// Text     string  `xml:",chardata"`
 							Quantity float64 `xml:"quantity"`
 						} `xml:"amount"`
 					} `xml:"post-amount"`
-					BalanceAssignment struct {
+					/* BalanceAssignment struct {
 						Text     string  `xml:",chardata"`
 						Quantity float64 `xml:"quantity"`
-					} `xml:"balance-assignment"`
-					Total struct {
+					} `xml:"balance-assignment"` */
+					/* Total struct {
 						Text   string `xml:",chardata"`
 						Amount struct {
 							Text     string  `xml:",chardata"`
 							Quantity float64 `xml:"quantity"`
 						} `xml:"amount"`
-					} `xml:"total"`
+					} `xml:"total"` */
 				} `xml:"posting"`
 			} `xml:"postings"`
 		} `xml:"transaction"`
