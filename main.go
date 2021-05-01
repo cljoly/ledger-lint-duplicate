@@ -190,6 +190,7 @@ func printDuplicate(printed *map[int]bool, txs ...Tx) {
 			tx.Position, tx.Date.Format("2006-01-02"), tx.Payee,
 			tx.Account, tx.Amount)
 	}
+	fmt.Println()
 }
 
 func findDuplicates(txs map[float64][]Tx) (allDuplicates [][]Tx) {
@@ -199,7 +200,7 @@ func findDuplicates(txs map[float64][]Tx) (allDuplicates [][]Tx) {
 		}
 
 		sort.SliceStable(txs, func(i, j int) bool {
-			return txs[i].Account < txs[j].Account || txs[i].Date.Before(txs[j].Date)
+			return txs[i].Date.Before(txs[j].Date) || txs[i].Account < txs[j].Account
 		})
 
 		var duplicates []Tx
