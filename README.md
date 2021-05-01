@@ -9,3 +9,7 @@ Small go utility to find transactions that may be duplicated in a ledger file.
 ```
 go get joly.pw/ledger-lint-duplicate
 ```
+Or for recent go version:
+```
+go install joly.pw/ledger-lint-duplicate@latest
+```
