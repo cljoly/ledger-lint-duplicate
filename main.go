@@ -180,7 +180,7 @@ type Tx struct {
 }
 
 func printDuplicate(printed *map[int]bool, txs ...Tx) {
-	if len(txs) <= 1 {
+	if len(txs) <= 0 {
 		return
 	}
 
@@ -202,21 +202,21 @@ func findDuplicates(txs map[float64][]Tx) (allDuplicates [][]Tx) {
 			return txs[i].Account < txs[j].Account || txs[i].Date.Before(txs[j].Date)
 		})
 
-		startDate := txs[0].Date
-		duplicates := []Tx{txs[0]}
+		var duplicates []Tx
 		for i := 1; i < len(txs); i++ {
 			endDate := txs[i].Date
-			d := endDate.Sub(startDate)
+			d := txs[i].Date.Sub(txs[i-1].Date)
 			if d.Hours() <= TenDaysInHours {
-				duplicates = append(duplicates, txs[i])
+				if len(duplicates) >= 1 && endDate.Sub(duplicates[len(duplicates)-1].Date).Hours() <= TenDaysInHours {
+					duplicates = append(duplicates, txs[i])
+				} else {
+					allDuplicates = append(allDuplicates, duplicates)
+					duplicates = []Tx{txs[i-1], txs[i]}
+				}
 			}
-
-			startDate = endDate
 		}
 
-		if len(duplicates) >= 1 {
-			allDuplicates = append(allDuplicates, duplicates)
-		}
+		allDuplicates = append(allDuplicates, duplicates)
 	}
 	return allDuplicates
 }

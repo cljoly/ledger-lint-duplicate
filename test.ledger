@@ -1,19 +1,19 @@
-2021-05-01 * Test1
+2021-05-01 * Dup4
 	; Group: 7a2491e65e573393
     Expenses:A                 10,00 £
     Assets:A
 
-2021-05-03 * Test1
+2021-05-03 * Dup4
 	; Group: 7a2491e65e573393
     Expenses:A                 10,00 £
     Assets:A
 
-2021-05-05 * Test1
+2021-05-05 * Dup4
 	; Group: 7a2491e65e573393
     Expenses:A                 10,00 £
     Assets:A
 
-2021-05-15 * Test1
+2021-05-15 * Dup4
 	; Group: 7a2491e65e573393
     Expenses:A                 10,00 £
     Assets:A
@@ -23,22 +23,34 @@
     Expenses:A                 10,00 £
     Assets:A
 
-2022-05-02 * Test2
+2022-05-02 * Dup3
 	; Group: 7a2492e65e573393
     Expenses:A                 10,00 £
     Assets:A
 
-2022-05-03 * Test2
+2022-05-03 * Dup3
 	; Group: 7a2492e65e573393
     Expenses:A                 10,00 £
     Assets:A
 
-2022-05-05 * Test2
+2022-05-05 * Dup3
 	; Group: 7a2492e65e573393
     Expenses:A                 10,00 £
     Assets:A
 
-2022-05-25 * Test2
+2022-05-25 * NoDup
 	; Group: 7a2492e65e573393
     Expenses:A                 10,00 £
     Assets:A
+
+; Two duplicates
+2023-05-03 * Dup2
+	; Group: 7a2492e65e573393
+    Expenses:A                 10,00 £
+    Assets:A
+
+2023-05-05 * Dup2
+	; Group: 7a2492e65e573393
+    Expenses:A                 10,00 £
+    Assets:A
+
