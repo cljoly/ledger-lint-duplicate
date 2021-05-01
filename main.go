@@ -33,110 +33,110 @@ type Ledger struct {
 	Text        string   `xml:",chardata"`
 	Version     string   `xml:"version,attr"`
 	Commodities struct {
-	Text      string `xml:",chardata"`
-	Commodity struct {
-	Text   string `xml:",chardata"`
-	Flags  string `xml:"flags,attr"`
-	Symbol string `xml:"symbol"`
-	} `xml:"commodity"`
+		Text      string `xml:",chardata"`
+		Commodity struct {
+			Text   string `xml:",chardata"`
+			Flags  string `xml:"flags,attr"`
+			Symbol string `xml:"symbol"`
+		} `xml:"commodity"`
 	} `xml:"commodities"`
 	Accounts struct {
-	Text    string `xml:",chardata"`
-	Account struct {
-	Text         string `xml:",chardata"`
-	ID           string `xml:"id,attr"`
-	Name         string `xml:"name"`
-	Fullname     string `xml:"fullname"`
-	AccountTotal struct {
-	Text   string `xml:",chardata"`
-	Amount struct {
-	Text     string `xml:",chardata"`
-	Quantity string `xml:"quantity"`
-	} `xml:"amount"`
-	} `xml:"account-total"`
-	Account []struct {
-	Text         string `xml:",chardata"`
-	ID           string `xml:"id,attr"`
-	Name         string `xml:"name"`
-	Fullname     string `xml:"fullname"`
-	AccountTotal struct {
-	Text   string `xml:",chardata"`
-	Amount struct {
-	Text     string `xml:",chardata"`
-	Quantity string `xml:"quantity"`
-	} `xml:"amount"`
-	} `xml:"account-total"`
-	Account struct {
-	Text          string `xml:",chardata"`
-	ID            string `xml:"id,attr"`
-	Name          string `xml:"name"`
-	Fullname      string `xml:"fullname"`
-	AccountAmount struct {
-	Text   string `xml:",chardata"`
-	Amount struct {
-	Text     string `xml:",chardata"`
-	Quantity string `xml:"quantity"`
-	} `xml:"amount"`
-	} `xml:"account-amount"`
-	AccountTotal struct {
-	Text   string `xml:",chardata"`
-	Amount struct {
-	Text     string `xml:",chardata"`
-	Quantity string `xml:"quantity"`
-	} `xml:"amount"`
-	} `xml:"account-total"`
-	} `xml:"account"`
-	} `xml:"account"`
-	} `xml:"account"`
+		Text    string `xml:",chardata"`
+		Account struct {
+			Text         string `xml:",chardata"`
+			ID           string `xml:"id,attr"`
+			Name         string `xml:"name"`
+			Fullname     string `xml:"fullname"`
+			AccountTotal struct {
+				Text   string `xml:",chardata"`
+				Amount struct {
+					Text     string `xml:",chardata"`
+					Quantity string `xml:"quantity"`
+				} `xml:"amount"`
+			} `xml:"account-total"`
+			Account []struct {
+				Text         string `xml:",chardata"`
+				ID           string `xml:"id,attr"`
+				Name         string `xml:"name"`
+				Fullname     string `xml:"fullname"`
+				AccountTotal struct {
+					Text   string `xml:",chardata"`
+					Amount struct {
+						Text     string `xml:",chardata"`
+						Quantity string `xml:"quantity"`
+					} `xml:"amount"`
+				} `xml:"account-total"`
+				Account struct {
+					Text          string `xml:",chardata"`
+					ID            string `xml:"id,attr"`
+					Name          string `xml:"name"`
+					Fullname      string `xml:"fullname"`
+					AccountAmount struct {
+						Text   string `xml:",chardata"`
+						Amount struct {
+							Text     string `xml:",chardata"`
+							Quantity string `xml:"quantity"`
+						} `xml:"amount"`
+					} `xml:"account-amount"`
+					AccountTotal struct {
+						Text   string `xml:",chardata"`
+						Amount struct {
+							Text     string `xml:",chardata"`
+							Quantity string `xml:"quantity"`
+						} `xml:"amount"`
+					} `xml:"account-total"`
+				} `xml:"account"`
+			} `xml:"account"`
+		} `xml:"account"`
 	} `xml:"accounts"`
 	Transactions struct {
-	Text        string `xml:",chardata"`
-	Transaction []struct {
-	Text     string `xml:",chardata"`
-	State    string `xml:"state,attr"`
-	Date     string `xml:"date"`
-	Payee    string `xml:"payee"`
-	Note     string `xml:"note"`
-	Metadata struct {
-	Text  string `xml:",chardata"`
-	Value struct {
-	Text   string `xml:",chardata"`
-	Key    string `xml:"key,attr"`
-	String string `xml:"string"`
-	} `xml:"value"`
-	} `xml:"metadata"`
-	Postings struct {
-	Text    string `xml:",chardata"`
-	Posting []struct {
-	Text    string `xml:",chardata"`
-	State   string `xml:"state,attr"`
-	Virtual string `xml:"virtual,attr"`
-	Account struct {
-	Text string `xml:",chardata"`
-	Ref  string `xml:"ref,attr"`
-	Name string `xml:"name"`
-	} `xml:"account"`
-	PostAmount struct {
-	Text   string `xml:",chardata"`
-	Amount struct {
-	Text     string  `xml:",chardata"`
-	Quantity float64 `xml:"quantity"`
-	} `xml:"amount"`
-	} `xml:"post-amount"`
-	BalanceAssignment struct {
-	Text     string  `xml:",chardata"`
-	Quantity float64 `xml:"quantity"`
-	} `xml:"balance-assignment"`
-	Total struct {
-	Text   string `xml:",chardata"`
-	Amount struct {
-	Text     string  `xml:",chardata"`
-	Quantity float64 `xml:"quantity"`
-	} `xml:"amount"`
-	} `xml:"total"`
-	} `xml:"posting"`
-	} `xml:"postings"`
-	} `xml:"transaction"`
+		Text        string `xml:",chardata"`
+		Transaction []struct {
+			Text     string `xml:",chardata"`
+			State    string `xml:"state,attr"`
+			Date     string `xml:"date"`
+			Payee    string `xml:"payee"`
+			Note     string `xml:"note"`
+			Metadata struct {
+				Text  string `xml:",chardata"`
+				Value struct {
+					Text   string `xml:",chardata"`
+					Key    string `xml:"key,attr"`
+					String string `xml:"string"`
+				} `xml:"value"`
+			} `xml:"metadata"`
+			Postings struct {
+				Text    string `xml:",chardata"`
+				Posting []struct {
+					Text    string `xml:",chardata"`
+					State   string `xml:"state,attr"`
+					Virtual string `xml:"virtual,attr"`
+					Account struct {
+						Text string `xml:",chardata"`
+						Ref  string `xml:"ref,attr"`
+						Name string `xml:"name"`
+					} `xml:"account"`
+					PostAmount struct {
+						Text   string `xml:",chardata"`
+						Amount struct {
+							Text     string  `xml:",chardata"`
+							Quantity float64 `xml:"quantity"`
+						} `xml:"amount"`
+					} `xml:"post-amount"`
+					BalanceAssignment struct {
+						Text     string  `xml:",chardata"`
+						Quantity float64 `xml:"quantity"`
+					} `xml:"balance-assignment"`
+					Total struct {
+						Text   string `xml:",chardata"`
+						Amount struct {
+							Text     string  `xml:",chardata"`
+							Quantity float64 `xml:"quantity"`
+						} `xml:"amount"`
+					} `xml:"total"`
+				} `xml:"posting"`
+			} `xml:"postings"`
+		} `xml:"transaction"`
 	} `xml:"transactions"`
 }
 
@@ -152,11 +152,11 @@ func (l *Ledger) toTxs() map[float64][]Tx {
 			amount := posting.PostAmount.Amount.Quantity
 
 			tx := Tx{
-				Date:    date,
+				Date:     date,
 				Position: p,
-				Payee: tx.Payee,
-				Account: posting.Account.Name,
-				Amount:  amount,
+				Payee:    tx.Payee,
+				Account:  posting.Account.Name,
+				Amount:   amount,
 			}
 
 			subTxs, exists := txs[amount]
@@ -171,12 +171,12 @@ func (l *Ledger) toTxs() map[float64][]Tx {
 }
 
 type Tx struct {
-	Date    time.Time
+	Date time.Time
 	// Position in the imported xml file
 	Position int
-	Payee string
-	Account string
-	Amount  float64
+	Payee    string
+	Account  string
+	Amount   float64
 }
 
 func printDuplicate(printed *map[int]bool, txs ...Tx) {
@@ -187,7 +187,7 @@ func printDuplicate(printed *map[int]bool, txs ...Tx) {
 	fmt.Println("Potential new duplicates:")
 	for _, tx := range txs {
 		fmt.Printf("(%v)\t%v %v\n\t\t%v\t\t\t%v\n",
-			tx.Position, tx.Date.Format("2006-01-02"), tx.Payee, 
+			tx.Position, tx.Date.Format("2006-01-02"), tx.Payee,
 			tx.Account, tx.Amount)
 	}
 }
