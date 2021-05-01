@@ -1,0 +1,48 @@
+Potential new duplicates:
+(0)	2021-05-01 Dup4
+		Expenses:A			10
+(1)	2021-05-03 Dup4
+		Expenses:A			10
+(2)	2021-05-05 Dup4
+		Expenses:A			10
+(3)	2021-05-15 Dup4
+		Expenses:A			10
+
+Potential new duplicates:
+(5)	2022-05-02 Dup3
+		Expenses:A			10
+(6)	2022-05-03 Dup3
+		Expenses:A			10
+(7)	2022-05-05 Dup3
+		Expenses:A			10
+
+Potential new duplicates:
+(9)	2023-05-03 Dup2
+		Expenses:A			10
+(10)	2023-05-05 Dup2
+		Expenses:A			10
+
+Potential new duplicates:
+(0)	2021-05-01 Dup4
+		Assets:A			-10
+(1)	2021-05-03 Dup4
+		Assets:A			-10
+(2)	2021-05-05 Dup4
+		Assets:A			-10
+(3)	2021-05-15 Dup4
+		Assets:A			-10
+
+Potential new duplicates:
+(5)	2022-05-02 Dup3
+		Assets:A			-10
+(6)	2022-05-03 Dup3
+		Assets:A			-10
+(7)	2022-05-05 Dup3
+		Assets:A			-10
+
+Potential new duplicates:
+(9)	2023-05-03 Dup2
+		Assets:A			-10
+(10)	2023-05-05 Dup2
+		Assets:A			-10
+
