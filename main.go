@@ -20,11 +20,11 @@ package main
 
 import (
 	"encoding/xml"
-	"sort"
 	"fmt"
 	"io/ioutil"
 	"log"
 	"os"
+	"sort"
 	"time"
 )
 
@@ -140,33 +140,60 @@ type Ledger struct {
 	} `xml:"transactions"`
 }
 
-func (l *Ledger) toTxs() []Tx {
-	txs := make([]Tx, 0)
-	for _, tx := range l.Transactions.Transaction {
+func (l *Ledger) toTxs() map[float64][]Tx {
+	txs := make(map[float64][]Tx)
+	for p, tx := range l.Transactions.Transaction {
 		date, err := time.Parse("2006/01/02", tx.Date)
 		if err != nil {
 			log.Fatal(err)
 		}
 
 		for _, posting := range tx.Postings.Posting {
-		txs = append(txs, Tx{
-			Date: date,
-			Account: posting.Account.Name,
-			Amount: posting.PostAmount.Amount.Quantity,
-		})
+			amount := posting.PostAmount.Amount.Quantity
+
+			tx := Tx{
+				Date:    date,
+				Position: p,
+				Payee: tx.Payee,
+				Account: posting.Account.Name,
+				Amount:  amount,
+			}
+
+			subTxs, exists := txs[amount]
+			if exists {
+				txs[amount] = append(subTxs, tx)
+			} else {
+				txs[amount] = []Tx{tx}
+			}
 		}
 	}
-	// fmt.Printf("==> %#v\n", ledger.Transactions.Transaction[0].Postings.Posting[0].Account.Name)
-	// fmt.Printf("==> %#v\n", ledger.Transactions.Transaction[0].Postings.Posting[0].PostAmount.Amount.Quantity)
-
 	return txs
 }
 
 type Tx struct {
 	Date    time.Time
+	// Position in the imported xml file
+	Position int
+	Payee string
 	Account string
 	Amount  float64
 }
+
+func printDuplicate(txs ...Tx) {
+	if len(txs) == 0 {
+		return
+	}
+
+	fmt.Println("Potential duplicates:")
+	for _, tx := range txs {
+		fmt.Printf("(%v)\t%v %v\n\t\t%v\t\t\t%v\n",
+			tx.Position, tx.Date.Format("2006-01-02"), tx.Payee, 
+			tx.Account, tx.Amount)
+
+	}
+}
+
+const TenDaysInHours = 240.0
 
 func main() {
 	fileName := os.Args[1]
@@ -180,12 +207,27 @@ func main() {
 
 	txs := ledger.toTxs()
 
-	sort.SliceStable(txs, func (i, j int) bool {
-		return txs[i].Amount < txs[j].Amount || txs[i].Account < txs[j].Account || txs[i].Date.Before(txs[j].Date)
-	})
-	
-	fmt.Printf("%+v\n", txs)
-	// fmt.Printf("==> %#v\n", ledger.Transactions.Transaction[0].Date)
-	// fmt.Printf("==> %#v\n", ledger.Transactions.Transaction[0].Postings.Posting[0].Account.Name)
-	// fmt.Printf("==> %#v\n", ledger.Transactions.Transaction[0].Postings.Posting[0].PostAmount.Amount.Quantity)
+	for _, txs := range txs {
+		if len(txs) <= 1 {
+			continue
+		}
+
+		sort.SliceStable(txs, func(i, j int) bool {
+			return txs[i].Account < txs[j].Account || txs[i].Date.Before(txs[j].Date)
+		})
+
+		startDate := txs[0].Date
+		startIdx := 0
+		for i := 1; i < len(txs); i++ {
+			endDate := txs[i].Date
+			d := endDate.Sub(startDate)
+			if d.Hours() <= TenDaysInHours {
+				printDuplicate(txs[startIdx], txs[i])
+			}
+
+			startIdx = i
+			startDate = endDate
+		}
+
+	}
 }

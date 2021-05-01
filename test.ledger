@@ -1,0 +1,25 @@
+2021-05-01 * Test1
+	; Group: 7a2491e65e573393
+    Expenses:A                 10,00 £
+    Assets:A
+
+2021-05-03 * Test1
+	; Group: 7a2491e65e573393
+    Expenses:A                 10,00 £
+    Assets:A
+
+2021-05-05 * Test1
+	; Group: 7a2491e65e573393
+    Expenses:A                 10,00 £
+    Assets:A
+
+2021-05-15 * Test1
+	; Group: 7a2491e65e573393
+    Expenses:A                 10,00 £
+    Assets:A
+
+2021-06-05 * NoDup
+	; Group: 7a2491e65e573393
+    Expenses:A                 10,00 £
+    Assets:A
+
