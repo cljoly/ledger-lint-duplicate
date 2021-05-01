@@ -33,110 +33,110 @@ type Ledger struct {
 	Text        string   `xml:",chardata"`
 	Version     string   `xml:"version,attr"`
 	Commodities struct {
-		Text      string `xml:",chardata"`
-		Commodity struct {
-			Text   string `xml:",chardata"`
-			Flags  string `xml:"flags,attr"`
-			Symbol string `xml:"symbol"`
-		} `xml:"commodity"`
+	Text      string `xml:",chardata"`
+	Commodity struct {
+	Text   string `xml:",chardata"`
+	Flags  string `xml:"flags,attr"`
+	Symbol string `xml:"symbol"`
+	} `xml:"commodity"`
 	} `xml:"commodities"`
 	Accounts struct {
-		Text    string `xml:",chardata"`
-		Account struct {
-			Text         string `xml:",chardata"`
-			ID           string `xml:"id,attr"`
-			Name         string `xml:"name"`
-			Fullname     string `xml:"fullname"`
-			AccountTotal struct {
-				Text   string `xml:",chardata"`
-				Amount struct {
-					Text     string `xml:",chardata"`
-					Quantity string `xml:"quantity"`
-				} `xml:"amount"`
-			} `xml:"account-total"`
-			Account []struct {
-				Text         string `xml:",chardata"`
-				ID           string `xml:"id,attr"`
-				Name         string `xml:"name"`
-				Fullname     string `xml:"fullname"`
-				AccountTotal struct {
-					Text   string `xml:",chardata"`
-					Amount struct {
-						Text     string `xml:",chardata"`
-						Quantity string `xml:"quantity"`
-					} `xml:"amount"`
-				} `xml:"account-total"`
-				Account struct {
-					Text          string `xml:",chardata"`
-					ID            string `xml:"id,attr"`
-					Name          string `xml:"name"`
-					Fullname      string `xml:"fullname"`
-					AccountAmount struct {
-						Text   string `xml:",chardata"`
-						Amount struct {
-							Text     string `xml:",chardata"`
-							Quantity string `xml:"quantity"`
-						} `xml:"amount"`
-					} `xml:"account-amount"`
-					AccountTotal struct {
-						Text   string `xml:",chardata"`
-						Amount struct {
-							Text     string `xml:",chardata"`
-							Quantity string `xml:"quantity"`
-						} `xml:"amount"`
-					} `xml:"account-total"`
-				} `xml:"account"`
-			} `xml:"account"`
-		} `xml:"account"`
+	Text    string `xml:",chardata"`
+	Account struct {
+	Text         string `xml:",chardata"`
+	ID           string `xml:"id,attr"`
+	Name         string `xml:"name"`
+	Fullname     string `xml:"fullname"`
+	AccountTotal struct {
+	Text   string `xml:",chardata"`
+	Amount struct {
+	Text     string `xml:",chardata"`
+	Quantity string `xml:"quantity"`
+	} `xml:"amount"`
+	} `xml:"account-total"`
+	Account []struct {
+	Text         string `xml:",chardata"`
+	ID           string `xml:"id,attr"`
+	Name         string `xml:"name"`
+	Fullname     string `xml:"fullname"`
+	AccountTotal struct {
+	Text   string `xml:",chardata"`
+	Amount struct {
+	Text     string `xml:",chardata"`
+	Quantity string `xml:"quantity"`
+	} `xml:"amount"`
+	} `xml:"account-total"`
+	Account struct {
+	Text          string `xml:",chardata"`
+	ID            string `xml:"id,attr"`
+	Name          string `xml:"name"`
+	Fullname      string `xml:"fullname"`
+	AccountAmount struct {
+	Text   string `xml:",chardata"`
+	Amount struct {
+	Text     string `xml:",chardata"`
+	Quantity string `xml:"quantity"`
+	} `xml:"amount"`
+	} `xml:"account-amount"`
+	AccountTotal struct {
+	Text   string `xml:",chardata"`
+	Amount struct {
+	Text     string `xml:",chardata"`
+	Quantity string `xml:"quantity"`
+	} `xml:"amount"`
+	} `xml:"account-total"`
+	} `xml:"account"`
+	} `xml:"account"`
+	} `xml:"account"`
 	} `xml:"accounts"`
 	Transactions struct {
-		Text        string `xml:",chardata"`
-		Transaction []struct {
-			Text     string `xml:",chardata"`
-			State    string `xml:"state,attr"`
-			Date     string `xml:"date"`
-			Payee    string `xml:"payee"`
-			Note     string `xml:"note"`
-			Metadata struct {
-				Text  string `xml:",chardata"`
-				Value struct {
-					Text   string `xml:",chardata"`
-					Key    string `xml:"key,attr"`
-					String string `xml:"string"`
-				} `xml:"value"`
-			} `xml:"metadata"`
-			Postings struct {
-				Text    string `xml:",chardata"`
-				Posting []struct {
-					Text    string `xml:",chardata"`
-					State   string `xml:"state,attr"`
-					Virtual string `xml:"virtual,attr"`
-					Account struct {
-						Text string `xml:",chardata"`
-						Ref  string `xml:"ref,attr"`
-						Name string `xml:"name"`
-					} `xml:"account"`
-					PostAmount struct {
-						Text   string `xml:",chardata"`
-						Amount struct {
-							Text     string  `xml:",chardata"`
-							Quantity float64 `xml:"quantity"`
-						} `xml:"amount"`
-					} `xml:"post-amount"`
-					BalanceAssignment struct {
-						Text     string  `xml:",chardata"`
-						Quantity float64 `xml:"quantity"`
-					} `xml:"balance-assignment"`
-					Total struct {
-						Text   string `xml:",chardata"`
-						Amount struct {
-							Text     string  `xml:",chardata"`
-							Quantity float64 `xml:"quantity"`
-						} `xml:"amount"`
-					} `xml:"total"`
-				} `xml:"posting"`
-			} `xml:"postings"`
-		} `xml:"transaction"`
+	Text        string `xml:",chardata"`
+	Transaction []struct {
+	Text     string `xml:",chardata"`
+	State    string `xml:"state,attr"`
+	Date     string `xml:"date"`
+	Payee    string `xml:"payee"`
+	Note     string `xml:"note"`
+	Metadata struct {
+	Text  string `xml:",chardata"`
+	Value struct {
+	Text   string `xml:",chardata"`
+	Key    string `xml:"key,attr"`
+	String string `xml:"string"`
+	} `xml:"value"`
+	} `xml:"metadata"`
+	Postings struct {
+	Text    string `xml:",chardata"`
+	Posting []struct {
+	Text    string `xml:",chardata"`
+	State   string `xml:"state,attr"`
+	Virtual string `xml:"virtual,attr"`
+	Account struct {
+	Text string `xml:",chardata"`
+	Ref  string `xml:"ref,attr"`
+	Name string `xml:"name"`
+	} `xml:"account"`
+	PostAmount struct {
+	Text   string `xml:",chardata"`
+	Amount struct {
+	Text     string  `xml:",chardata"`
+	Quantity float64 `xml:"quantity"`
+	} `xml:"amount"`
+	} `xml:"post-amount"`
+	BalanceAssignment struct {
+	Text     string  `xml:",chardata"`
+	Quantity float64 `xml:"quantity"`
+	} `xml:"balance-assignment"`
+	Total struct {
+	Text   string `xml:",chardata"`
+	Amount struct {
+	Text     string  `xml:",chardata"`
+	Quantity float64 `xml:"quantity"`
+	} `xml:"amount"`
+	} `xml:"total"`
+	} `xml:"posting"`
+	} `xml:"postings"`
+	} `xml:"transaction"`
 	} `xml:"transactions"`
 }
 
@@ -179,18 +179,46 @@ type Tx struct {
 	Amount  float64
 }
 
-func printDuplicate(txs ...Tx) {
-	if len(txs) == 0 {
+func printDuplicate(printed *map[int]bool, txs ...Tx) {
+	if len(txs) <= 1 {
 		return
 	}
 
-	fmt.Println("Potential duplicates:")
+	fmt.Println("Potential new duplicates:")
 	for _, tx := range txs {
 		fmt.Printf("(%v)\t%v %v\n\t\t%v\t\t\t%v\n",
 			tx.Position, tx.Date.Format("2006-01-02"), tx.Payee, 
 			tx.Account, tx.Amount)
-
 	}
+}
+
+func findDuplicates(txs map[float64][]Tx) (allDuplicates [][]Tx) {
+	for _, txs := range txs {
+		if len(txs) <= 1 {
+			continue
+		}
+
+		sort.SliceStable(txs, func(i, j int) bool {
+			return txs[i].Account < txs[j].Account || txs[i].Date.Before(txs[j].Date)
+		})
+
+		startDate := txs[0].Date
+		duplicates := []Tx{txs[0]}
+		for i := 1; i < len(txs); i++ {
+			endDate := txs[i].Date
+			d := endDate.Sub(startDate)
+			if d.Hours() <= TenDaysInHours {
+				duplicates = append(duplicates, txs[i])
+			}
+
+			startDate = endDate
+		}
+
+		if len(duplicates) >= 1 {
+			allDuplicates = append(allDuplicates, duplicates)
+		}
+	}
+	return allDuplicates
 }
 
 const TenDaysInHours = 240.0
@@ -206,28 +234,9 @@ func main() {
 	xml.Unmarshal(b, &ledger)
 
 	txs := ledger.toTxs()
-
-	for _, txs := range txs {
-		if len(txs) <= 1 {
-			continue
-		}
-
-		sort.SliceStable(txs, func(i, j int) bool {
-			return txs[i].Account < txs[j].Account || txs[i].Date.Before(txs[j].Date)
-		})
-
-		startDate := txs[0].Date
-		startIdx := 0
-		for i := 1; i < len(txs); i++ {
-			endDate := txs[i].Date
-			d := endDate.Sub(startDate)
-			if d.Hours() <= TenDaysInHours {
-				printDuplicate(txs[startIdx], txs[i])
-			}
-
-			startIdx = i
-			startDate = endDate
-		}
-
+	duplicates := findDuplicates(txs)
+	printed := make(map[int]bool)
+	for _, d := range duplicates {
+		printDuplicate(&printed, d...)
 	}
 }
