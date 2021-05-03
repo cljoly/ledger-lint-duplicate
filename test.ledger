@@ -5,6 +5,7 @@
 
 2021-05-03 * Dup4
 	; Group: 7a2491e65e573393
+    ; :notDup:
     Expenses:A                 10,00 £
     Assets:A
 
@@ -51,6 +52,19 @@
 
 2023-05-05 * Dup2
 	; Group: 7a2492e65e573393
+    Expenses:A                 10,00 £
+    Assets:A
+
+; Two marked as non-duplicates
+2013-05-03 * Hidden2
+	; Group: 7a2492e65e573393
+    ; :notDup:
+    Expenses:A                 10,00 £
+    Assets:A
+
+2013-05-05 * Hidden2
+	; Group: 7a2492e65e573393
+    ; :notDup:
     Expenses:A                 10,00 £
     Assets:A
 

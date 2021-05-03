@@ -102,11 +102,12 @@ type Ledger struct {
 			Note     string `xml:"note"`
 			Metadata struct {
 				Text  string `xml:",chardata"`
-				Value struct {
+				Value []struct {
 					Text   string `xml:",chardata"`
 					Key    string `xml:"key,attr"`
 					String string `xml:"string"`
 				} `xml:"value"`
+				Tags []string `xml:"tag"`
 			} `xml:"metadata"`
 			Postings struct {
 				Text    string `xml:",chardata"`
@@ -145,21 +146,25 @@ type Ledger struct {
 
 func (l *Ledger) toTxs() map[float64][]Tx {
 	txs := make(map[float64][]Tx)
-	for p, tx := range l.Transactions.Transaction {
-		date, err := time.Parse("2006/01/02", tx.Date)
+	for p, txXml := range l.Transactions.Transaction {
+		date, err := time.Parse("2006/01/02", txXml.Date)
 		if err != nil {
 			log.Fatal(err)
 		}
 
-		for _, posting := range tx.Postings.Posting {
+		for _, posting := range txXml.Postings.Posting {
 			amount := posting.PostAmount.Amount.Quantity
+
+			tags := make([]string, len(txXml.Metadata.Tags), len(txXml.Metadata.Tags))
+			copy(tags, txXml.Metadata.Tags)
 
 			tx := Tx{
 				Date:     date,
 				Position: p,
-				Payee:    tx.Payee,
+				Payee:    txXml.Payee,
 				Account:  posting.Account.Name,
 				Amount:   amount,
+				Tags:     tags,
 			}
 
 			subTxs, exists := txs[amount]
@@ -180,24 +185,51 @@ type Tx struct {
 	Payee    string
 	Account  string
 	Amount   float64
+	Tags     []string
 }
 
-func printDuplicate(printed *map[int]bool, txs ...*Tx) {
+// Find returns true on the first encountered occurence of val in slice
+func find(val string, slice []string) bool {
+	for _, str := range slice {
+		if str == val {
+			return true
+		}
+	}
+	return false
+}
+
+func printDuplicate(ignoredTag string, txs ...*Tx) {
 	if len(txs) <= 0 {
 		return
 	}
 
 	fmt.Println("Potential new duplicates:")
 	for _, tx := range txs {
-		fmt.Printf("(%v)\t%v %v\n\t\t%v\t\t\t%v\n",
-			tx.Position, tx.Date.Format("2006-01-02"), tx.Payee,
+		var tagIndicator string
+		if find(ignoredTag, tx.Tags) {
+			tagIndicator = "[IGNORED]"
+		}
+
+		fmt.Printf("(%v)\t%v %v\t\t\t%v\n\t\t%v\t\t\t%v\n",
+			tx.Position, tx.Date.Format("2006-01-02"), tx.Payee, tagIndicator,
 			tx.Account, tx.Amount)
 	}
 	fmt.Println()
 }
 
 // maxDuration is in hours
-func findDuplicates(maxDuration float64, txs map[float64][]Tx) (allDuplicates [][]*Tx) {
+func findDuplicates(maxDuration float64, ignoredTag string, txs map[float64][]Tx) (allDuplicates [][]*Tx) {
+	// Add duplicates, unles all transactions are marked with the ignore tag
+	keep := func(duplicates []*Tx) {
+		// If all duplicates have the ignore tag, drop them
+		for _, tx := range duplicates {
+			if !find(ignoredTag, tx.Tags) {
+				allDuplicates = append(allDuplicates, duplicates)
+				return
+			}
+		}
+	}
+
 	for _, txs := range txs {
 		if len(txs) <= 1 {
 			continue
@@ -223,14 +255,14 @@ func findDuplicates(maxDuration float64, txs map[float64][]Tx) (allDuplicates []
 					duplicates = append(duplicates, &txs[i])
 					lastInserted++
 				} else {
-					allDuplicates = append(allDuplicates, duplicates)
+					keep(duplicates)
 					duplicates = []*Tx{&txs[i-1], &txs[i]}
 					lastInserted = 1
 				}
 			}
 		}
 
-		allDuplicates = append(allDuplicates, duplicates)
+		keep(duplicates)
 	}
 	return allDuplicates
 }
@@ -238,6 +270,7 @@ func findDuplicates(maxDuration float64, txs map[float64][]Tx) (allDuplicates []
 var cpuprofile = flag.String("cpuprofile", "", "write cpu profile to `file`")
 var memprofile = flag.String("memprofile", "", "write memory profile to `file`")
 var days = flag.Float64("days", 10, "time in days to take before and after for two transactions to be considered duplicate")
+var ignoredTag = flag.String("ignore-tag", "notDup", "ignore these tags when all duplicates transactions have it")
 
 func main() {
 	flag.Parse()
@@ -266,10 +299,9 @@ func main() {
 	xml.Unmarshal(b, &ledger)
 
 	txs := ledger.toTxs()
-	duplicates := findDuplicates(24.**days, txs)
-	printed := make(map[int]bool)
+	duplicates := findDuplicates(24.**days, *ignoredTag, txs)
 	for _, d := range duplicates {
-		printDuplicate(&printed, d...)
+		printDuplicate(*ignoredTag, d...)
 	}
 
 	if *memprofile != "" {
