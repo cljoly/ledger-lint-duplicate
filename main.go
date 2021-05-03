@@ -196,14 +196,15 @@ func printDuplicate(printed *map[int]bool, txs ...*Tx) {
 	fmt.Println()
 }
 
-func findDuplicates(txs map[float64][]Tx) (allDuplicates [][]*Tx) {
+// maxDuration is in hours
+func findDuplicates(maxDuration float64, txs map[float64][]Tx) (allDuplicates [][]*Tx) {
 	for _, txs := range txs {
 		if len(txs) <= 1 {
 			continue
 		}
 
 		sort.SliceStable(txs, func(i, j int) bool {
-			return txs[i].Date.Before(txs[j].Date) || txs[i].Account < txs[j].Account
+			return txs[i].Date.Before(txs[j].Date)
 		})
 
 		var duplicates []*Tx
@@ -211,8 +212,14 @@ func findDuplicates(txs map[float64][]Tx) (allDuplicates [][]*Tx) {
 		for i := 1; i < len(txs); i++ {
 			endDate := txs[i].Date
 			d := txs[i].Date.Sub(txs[i-1].Date)
-			if d.Hours() <= TenDaysInHours {
-				if lastInserted >= 0 && endDate.Sub(duplicates[lastInserted].Date).Hours() <= TenDaysInHours {
+			if d.Hours() <= maxDuration {
+				if d.Hours() < 0 {
+					log.Fatal("negative duration 1, this is a bug, please report it!")
+				}
+				if lastInserted >= 0 && endDate.Sub(duplicates[lastInserted].Date).Hours() <= maxDuration {
+					if endDate.Sub(duplicates[lastInserted].Date).Hours() < 0 {
+						log.Fatal("negative duration 2, this is a bug, please report it!")
+					}
 					duplicates = append(duplicates, &txs[i])
 					lastInserted++
 				} else {
@@ -228,10 +235,9 @@ func findDuplicates(txs map[float64][]Tx) (allDuplicates [][]*Tx) {
 	return allDuplicates
 }
 
-const TenDaysInHours = 240.0
-
 var cpuprofile = flag.String("cpuprofile", "", "write cpu profile to `file`")
 var memprofile = flag.String("memprofile", "", "write memory profile to `file`")
+var days = flag.Float64("days", 10, "time in days to take before and after for two transactions to be considered duplicate")
 
 func main() {
 	flag.Parse()
@@ -260,7 +266,7 @@ func main() {
 	xml.Unmarshal(b, &ledger)
 
 	txs := ledger.toTxs()
-	duplicates := findDuplicates(txs)
+	duplicates := findDuplicates(24.**days, txs)
 	printed := make(map[int]bool)
 	for _, d := range duplicates {
 		printDuplicate(&printed, d...)
