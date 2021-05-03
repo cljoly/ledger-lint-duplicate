@@ -29,6 +29,8 @@ import (
 	"runtime/pprof"
 	"sort"
 	"time"
+
+	"zgo.at/zli"
 )
 
 type Ledger struct {
@@ -203,18 +205,17 @@ func printDuplicate(ignoredTag string, txs ...*Tx) {
 		return
 	}
 
-	fmt.Println("Potential new duplicates:")
+	fmt.Print(zli.BrightBlack|zli.White.Bg(), "; Potential duplicates:", zli.Reset, "\n")
 	for _, tx := range txs {
 		var tagIndicator string
 		if find(ignoredTag, tx.Tags) {
-			tagIndicator = "[IGNORED]"
+			tagIndicator = fmt.Sprint(zli.Blue, "[IGNORED]", zli.Reset)
 		}
 
 		fmt.Printf("(%v)\t%v %v\t\t\t%v\n\t\t%v\t\t\t%v\n",
 			tx.Position, tx.Date.Format("2006-01-02"), tx.Payee, tagIndicator,
 			tx.Account, tx.Amount)
 	}
-	fmt.Println()
 }
 
 // maxDuration is in hours

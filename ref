@@ -1,66 +1,42 @@
-Potential new duplicates:
-tags []
+; Potential duplicates:
 (2)	2021-05-01 Dup4			
 		Expenses:A			10
-tags [notDup]
 (3)	2021-05-03 Dup4			[IGNORED]
 		Expenses:A			10
-tags []
 (4)	2021-05-05 Dup4			
 		Expenses:A			10
-tags []
 (5)	2021-05-15 Dup4			
 		Expenses:A			10
-
-Potential new duplicates:
-tags []
+; Potential duplicates:
 (7)	2022-05-02 Dup3			
 		Expenses:A			10
-tags []
 (8)	2022-05-03 Dup3			
 		Expenses:A			10
-tags []
 (9)	2022-05-05 Dup3			
 		Expenses:A			10
-
-Potential new duplicates:
-tags []
+; Potential duplicates:
 (11)	2023-05-03 Dup2			
 		Expenses:A			10
-tags []
 (12)	2023-05-05 Dup2			
 		Expenses:A			10
-
-Potential new duplicates:
-tags []
+; Potential duplicates:
 (2)	2021-05-01 Dup4			
 		Assets:A			-10
-tags [notDup]
 (3)	2021-05-03 Dup4			[IGNORED]
 		Assets:A			-10
-tags []
 (4)	2021-05-05 Dup4			
 		Assets:A			-10
-tags []
 (5)	2021-05-15 Dup4			
 		Assets:A			-10
-
-Potential new duplicates:
-tags []
+; Potential duplicates:
 (7)	2022-05-02 Dup3			
 		Assets:A			-10
-tags []
 (8)	2022-05-03 Dup3			
 		Assets:A			-10
-tags []
 (9)	2022-05-05 Dup3			
 		Assets:A			-10
-
-Potential new duplicates:
-tags []
+; Potential duplicates:
 (11)	2023-05-03 Dup2			
 		Assets:A			-10
-tags []
 (12)	2023-05-05 Dup2			
 		Assets:A			-10
-
